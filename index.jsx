@@ -33,7 +33,7 @@ const App = React.createClass({
         request
             .get(`http://localhost:7070/api/plane`)
             .end((err, res) => {
-                if(!res.ok) {
+                if(!res) {
                     console.log(err);
                     return;
                 }
@@ -90,22 +90,22 @@ const App = React.createClass({
                                                     {moment(measurement.timestamp).format("DD-MM-YYYY HH:mm:ss")}
                                                 </td>
                                                 <td>
-                                                    {measurement.position.latitude}
-                                                </td>
-                                                 <td>
-                                                    {measurement.position.altitude}
+                                                    {measurement.position.latitude.toFixed(4)}
                                                 </td>
                                                 <td>
-                                                    {measurement.position.longitude}
+                                                    {measurement.position.longitude.toFixed(4)}
                                                 </td>
                                                 <td>
-                                                    {measurement.speed.trueAirSpeed}
+                                                    {measurement.position.altitude.toFixed(2)}
                                                 </td>
                                                 <td>
-                                                    {measurement.speed.indicatedAirSpeed}
+                                                    {measurement.speed.trueAirSpeed.toFixed(2)}
                                                 </td>
                                                 <td>
-                                                    {measurement.speed.verticalSpeed}
+                                                    {measurement.speed.indicatedAirSpeed.toFixed(2)}
+                                                </td>
+                                                <td>
+                                                    {measurement.speed.verticalSpeed.toFixed(2)}
                                                 </td>
                                             </tr>
                                         )}

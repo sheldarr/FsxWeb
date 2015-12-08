@@ -128,7 +128,7 @@ var App = React.createClass({
         var _this = this;
 
         request.get('http://localhost:7070/api/plane').end(function (err, res) {
-            if (!res.ok) {
+            if (!res) {
                 console.log(err);
                 return;
             }
@@ -244,32 +244,32 @@ var App = React.createClass({
                                             React.createElement(
                                                 'td',
                                                 null,
-                                                measurement.position.latitude
+                                                measurement.position.latitude.toFixed(4)
                                             ),
                                             React.createElement(
                                                 'td',
                                                 null,
-                                                measurement.position.altitude
+                                                measurement.position.longitude.toFixed(4)
                                             ),
                                             React.createElement(
                                                 'td',
                                                 null,
-                                                measurement.position.longitude
+                                                measurement.position.altitude.toFixed(2)
                                             ),
                                             React.createElement(
                                                 'td',
                                                 null,
-                                                measurement.speed.trueAirSpeed
+                                                measurement.speed.trueAirSpeed.toFixed(2)
                                             ),
                                             React.createElement(
                                                 'td',
                                                 null,
-                                                measurement.speed.indicatedAirSpeed
+                                                measurement.speed.indicatedAirSpeed.toFixed(2)
                                             ),
                                             React.createElement(
                                                 'td',
                                                 null,
-                                                measurement.speed.verticalSpeed
+                                                measurement.speed.verticalSpeed.toFixed(2)
                                             )
                                         );
                                     })
