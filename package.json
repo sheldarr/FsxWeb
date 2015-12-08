@@ -4,7 +4,7 @@
   "description": "Web application for display FsxApi data",
   "main": "index.jsx",
   "scripts": {
-    "transpile": "browserify index.js -o bundle.js -t [ babelify --presets [ es2015 react ] ]"
+    "transpile": "browserify index.jsx -o bundle.js -t [ babelify --presets [ es2015 react ] ]"
   },
   "repository": {
     "type": "git",
