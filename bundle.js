@@ -130,9 +130,11 @@ var App = React.createClass({
                 _this.setState({
                     measurements: _this.state.measurements.concat([measurement])
                 });
-            } else {
-                console.log("Api error");
+
+                return;
             }
+
+            console.log("Api error");
         });
     },
     _getMeasurementsConstantly: function _getMeasurementsConstantly() {

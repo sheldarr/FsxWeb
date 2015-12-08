@@ -35,9 +35,10 @@ const App = React.createClass({
                         measurements: this.state.measurements.concat([measurement])
                     });
 
-                } else {
-                    console.log("Api error");
+                    return;
                 }
+                 
+                console.log("Api error");
             });
     },
 
