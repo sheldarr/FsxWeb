@@ -1,0 +1,19 @@
+{
+  "name": "FsxWeb",
+  "version": "1.0.0",
+  "description": "Web application for display FsxApi data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sheldarr/FsxWeb.git"
+  },
+  "author": "Kewin Polok",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sheldarr/FsxWeb/issues"
+  },
+  "homepage": "https://github.com/sheldarr/FsxWeb#readme"
+}
