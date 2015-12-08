@@ -2,7 +2,7 @@
   "name": "FsxWeb",
   "version": "1.0.0",
   "description": "Web application for display FsxApi data",
-  "main": "index.js",
+  "main": "index.jsx",
   "scripts": {
     "transpile": "browserify index.js -o bundle.js -t [ babelify --presets [ es2015 react ] ]"
   },
@@ -22,6 +22,7 @@
     "babelify": "^7.2.0"
   },
   "dependencies": {
+    "moment": "^2.10.6",
     "react": "^0.14.3",
     "react-bootstrap": "^0.28.1",
     "react-dom": "^0.14.3",

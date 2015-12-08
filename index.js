@@ -12,13 +12,14 @@ const Panel = require('react-bootstrap').Panel
 const Row = require('react-bootstrap').Row;
 const Table = require('react-bootstrap').Table;
 
-var request = require('superagent');
+const moment = require('moment');
+const request = require('superagent');
 
 const App = React.createClass({
     getInitialState() {
         return {
             measurements: [],
-            getConstantly: false
+            intervalId: 0
         }
     },
 
@@ -40,6 +41,20 @@ const App = React.createClass({
             });
     },
 
+    _getMeasurementsConstaintly() {
+        this.setState({
+            intervalId: setInterval(this._getMeasurement, 1000)
+        });
+    },
+
+    _stopGetingMeasurementsConstaintly() {
+        clearInterval(this.state.intevalId)
+
+        this.setState({
+            intervalId: 0
+        });
+    },
+
     render() {
         return (
             <div>
@@ -53,7 +68,7 @@ const App = React.createClass({
                                 <Table striped hover>
                                     <thead>
                                         <tr>
-                                            <td>DateTime</td>
+                                            <td>Timestamp</td>
                                             <td>Latitude</td>
                                             <td>Longitude</td>
                                             <td>True Air Speed [kn]</td>
@@ -65,7 +80,7 @@ const App = React.createClass({
                                         {this.state.measurements.map(measurement => 
                                             <tr key={measurement.timestamp}>
                                                 <td>
-                                                    {measurement.timestamp}
+                                                    {moment(measurement.timestamp).format("DD-MM-YYYY HH:mm:ss")}
                                                 </td>
                                                 <td>
                                                     {measurement.position.latitude}
@@ -88,8 +103,8 @@ const App = React.createClass({
                                 </Table>
                                 <div className="pull-right">
                                     <Button bsStyle="success" onClick={this._getMeasurement} style={{marginRight: 20}}><Glyphicon glyph="download" /> Get Once</Button>
-                                    <Button bsStyle="success" disabled={this.state.getConstantly} style={{marginRight: 5}}><Glyphicon glyph="repeat" /> Get Constaintly</Button>
-                                    <Button bsStyle="danger" disabled={!this.state.getConstantly} style={{marginRight: 5}}><Glyphicon glyph="stop" /> Stop</Button>
+                                    <Button bsStyle="success" onClick={this._getMeasurementsConstaintly} disabled={this.state.intervalId !== 0} style={{marginRight: 5}}><Glyphicon glyph="repeat" /> Get Constaintly</Button>
+                                    <Button bsStyle="danger" onClick={this._stopGetingMeasurementsConstaintly} disabled={this.state.intervalId === 0} style={{marginRight: 5}}><Glyphicon glyph="stop" /> Stop</Button>
                                 </div>
                             </Panel>
                         </Col>
