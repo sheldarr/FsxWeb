@@ -103,8 +103,8 @@ var Glyphicon = require('react-bootstrap').Glyphicon;
 var Grid = require('react-bootstrap').Grid;
 var Nav = require('react-bootstrap').Nav;
 var Navbar = require('react-bootstrap').Navbar;
-var NavBrand = require('react-bootstrap').NavBrand;
-var NavItem = require('react-bootstrap').NavItem;
+var NavbarBrand = require('react-bootstrap').NavbarBrand;
+var Panel = require('react-bootstrap').Panel;
 var Row = require('react-bootstrap').Row;
 var Table = require('react-bootstrap').Table;
 
@@ -112,7 +112,8 @@ var App = React.createClass({
     displayName: 'App',
     getInitialState: function getInitialState() {
         return {
-            measurements: []
+            measurements: [],
+            getConstantly: false
         };
     },
     render: function render() {
@@ -123,7 +124,7 @@ var App = React.createClass({
                 Navbar,
                 null,
                 React.createElement(
-                    NavBrand,
+                    NavbarBrand,
                     null,
                     'Projekt SL'
                 )
@@ -137,7 +138,124 @@ var App = React.createClass({
                     React.createElement(
                         Col,
                         null,
-                        'Test'
+                        React.createElement(
+                            Panel,
+                            { header: React.createElement(
+                                    'span',
+                                    null,
+                                    React.createElement(Glyphicon, { glyph: 'list' }),
+                                    ' Measurements'
+                                ) },
+                            React.createElement(
+                                Table,
+                                { striped: true, hover: true },
+                                React.createElement(
+                                    'thead',
+                                    null,
+                                    React.createElement(
+                                        'tr',
+                                        null,
+                                        React.createElement(
+                                            'td',
+                                            null,
+                                            '#'
+                                        ),
+                                        React.createElement(
+                                            'td',
+                                            null,
+                                            'DateTime'
+                                        ),
+                                        React.createElement(
+                                            'td',
+                                            null,
+                                            'Latitude'
+                                        ),
+                                        React.createElement(
+                                            'td',
+                                            null,
+                                            'Longitude'
+                                        ),
+                                        React.createElement(
+                                            'td',
+                                            null,
+                                            'True Air Speed [kn]'
+                                        ),
+                                        React.createElement(
+                                            'td',
+                                            null,
+                                            'Indicated Air Speed [kn]'
+                                        ),
+                                        React.createElement(
+                                            'td',
+                                            null,
+                                            'Vertical Speed [m/s]'
+                                        )
+                                    )
+                                ),
+                                React.createElement(
+                                    'tbody',
+                                    null,
+                                    this.state.measurements.map(function (measurement) {
+                                        return React.createElement(
+                                            'tr',
+                                            { key: measurement.id },
+                                            React.createElement(
+                                                'td',
+                                                null,
+                                                measurement.id
+                                            ),
+                                            React.createElement(
+                                                'td',
+                                                null,
+                                                measurement.position.latitude
+                                            ),
+                                            React.createElement(
+                                                'td',
+                                                null,
+                                                measurement.position.longitude
+                                            ),
+                                            React.createElement(
+                                                'td',
+                                                null,
+                                                measurement.speed.trueAirSpeed
+                                            ),
+                                            React.createElement(
+                                                'td',
+                                                null,
+                                                measurement.speed.indicatedSpeed
+                                            ),
+                                            React.createElement(
+                                                'td',
+                                                null,
+                                                measurement.speed.verticalSpeed
+                                            )
+                                        );
+                                    })
+                                )
+                            ),
+                            React.createElement(
+                                'div',
+                                { className: 'pull-right' },
+                                React.createElement(
+                                    Button,
+                                    { bsStyle: 'success', style: { marginRight: 20 } },
+                                    React.createElement(Glyphicon, { glyph: 'download' }),
+                                    ' Get Once'
+                                ),
+                                React.createElement(
+                                    Button,
+                                    { bsStyle: 'success', disabled: this.state.getConstantly, style: { marginRight: 5 } },
+                                    React.createElement(Glyphicon, { glyph: 'repeat' }),
+                                    ' Get Constaintly'
+                                ),
+                                React.createElement(
+                                    Button,
+                                    { bsStyle: 'danger', disabled: !this.state.getConstantly, style: { marginRight: 5 } },
+                                    React.createElement(Glyphicon, { glyph: 'stop' }),
+                                    ' Stop'
+                                )
+                            )
+                        )
                     )
                 )
             )

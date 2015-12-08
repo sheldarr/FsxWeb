@@ -4,8 +4,7 @@
   "description": "Web application for display FsxApi data",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "browserify index.js -o bundle.js -t [ babelify --presets [ es2015 react ] ]"
+    "transpile": "browserify index.js -o bundle.js -t [ babelify --presets [ es2015 react ] ]"
   },
   "repository": {
     "type": "git",
