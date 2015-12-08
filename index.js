@@ -12,12 +12,32 @@ const Panel = require('react-bootstrap').Panel
 const Row = require('react-bootstrap').Row;
 const Table = require('react-bootstrap').Table;
 
+var request = require('superagent');
+
 const App = React.createClass({
     getInitialState() {
         return {
             measurements: [],
             getConstantly: false
         }
+    },
+
+    _getMeasurement() {
+        request
+            .get(`http://localhost:7070/api/plane`)
+            .end((err, res) => {
+                if (res.ok) {
+                    var measurement = res.body;
+                    measurement.timestamp = Date.now();
+
+                    this.setState({
+                        measurements: this.state.measurements.concat([measurement])
+                    });
+
+                } else {
+                    console.log("Api error");
+                }
+            });
     },
 
     render() {
@@ -43,7 +63,10 @@ const App = React.createClass({
                                     </thead>
                                     <tbody>
                                         {this.state.measurements.map(measurement => 
-                                            <tr key={measurement.id}>
+                                            <tr key={measurement.timestamp}>
+                                                <td>
+                                                    {measurement.timestamp}
+                                                </td>
                                                 <td>
                                                     {measurement.position.latitude}
                                                 </td>
@@ -54,7 +77,7 @@ const App = React.createClass({
                                                     {measurement.speed.trueAirSpeed}
                                                 </td>
                                                 <td>
-                                                    {measurement.speed.indicatedSpeed}
+                                                    {measurement.speed.indicatedAirSpeed}
                                                 </td>
                                                 <td>
                                                     {measurement.speed.verticalSpeed}
@@ -64,7 +87,7 @@ const App = React.createClass({
                                     </tbody>
                                 </Table>
                                 <div className="pull-right">
-                                    <Button bsStyle="success" style={{marginRight: 20}}><Glyphicon glyph="download" /> Get Once</Button>
+                                    <Button bsStyle="success" onClick={this._getMeasurement} style={{marginRight: 20}}><Glyphicon glyph="download" /> Get Once</Button>
                                     <Button bsStyle="success" disabled={this.state.getConstantly} style={{marginRight: 5}}><Glyphicon glyph="repeat" /> Get Constaintly</Button>
                                     <Button bsStyle="danger" disabled={!this.state.getConstantly} style={{marginRight: 5}}><Glyphicon glyph="stop" /> Stop</Button>
                                 </div>
