@@ -23,22 +23,27 @@ const App = React.createClass({
         }
     },
 
+    _clearMeasurements() {
+        this.setState({
+            measurements: []
+        })
+    },
+
     _getMeasurement() {
         request
             .get(`http://localhost:7070/api/plane`)
             .end((err, res) => {
-                if (res.ok) {
-                    var measurement = res.body;
-                    measurement.timestamp = Date.now();
-
-                    this.setState({
-                        measurements: this.state.measurements.concat([measurement])
-                    });
-
+                if(!res.ok) {
+                    console.log(err);
                     return;
                 }
-                 
-                console.log("Api error");
+
+                var measurement = res.body;
+                measurement.timestamp = Date.now();
+
+                this.setState({
+                    measurements: this.state.measurements.concat([measurement])
+                });
             });
     },
 
@@ -70,8 +75,9 @@ const App = React.createClass({
                                     <thead>
                                         <tr>
                                             <td>Timestamp</td>
-                                            <td>Latitude</td>
-                                            <td>Longitude</td>
+                                            <td>Latitude [deg]</td>
+                                            <td>Longitude [deg]</td>
+                                            <td>Altitude [m]</td>
                                             <td>True Air Speed [kn]</td>
                                             <td>Indicated Air Speed [kn]</td>
                                             <td>Vertical Speed [m/s]</td>
@@ -85,6 +91,9 @@ const App = React.createClass({
                                                 </td>
                                                 <td>
                                                     {measurement.position.latitude}
+                                                </td>
+                                                 <td>
+                                                    {measurement.position.altitude}
                                                 </td>
                                                 <td>
                                                     {measurement.position.longitude}
@@ -102,6 +111,9 @@ const App = React.createClass({
                                         )}
                                     </tbody>
                                 </Table>
+                                <div className="pull-left">
+                                    <Button bsStyle="danger" onClick={this._clearMeasurements} style={{marginRight: 5}}><Glyphicon glyph="trash" /> Clear Measurements</Button>
+                                </div>
                                 <div className="pull-right">
                                     <Button bsStyle="success" onClick={this._getMeasurement} style={{marginRight: 20}}><Glyphicon glyph="download" /> Get Once</Button>
                                     <Button bsStyle="success" onClick={this._getMeasurementsConstantly} disabled={this.state.intervalId !== 0} style={{marginRight: 5}}><Glyphicon glyph="repeat" /> Get Constantly</Button>

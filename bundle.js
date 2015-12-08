@@ -119,22 +119,26 @@ var App = React.createClass({
             intervalId: 0
         };
     },
+    _clearMeasurements: function _clearMeasurements() {
+        this.setState({
+            measurements: []
+        });
+    },
     _getMeasurement: function _getMeasurement() {
         var _this = this;
 
         request.get('http://localhost:7070/api/plane').end(function (err, res) {
-            if (res.ok) {
-                var measurement = res.body;
-                measurement.timestamp = Date.now();
-
-                _this.setState({
-                    measurements: _this.state.measurements.concat([measurement])
-                });
-
+            if (!res.ok) {
+                console.log(err);
                 return;
             }
 
-            console.log("Api error");
+            var measurement = res.body;
+            measurement.timestamp = Date.now();
+
+            _this.setState({
+                measurements: _this.state.measurements.concat([measurement])
+            });
         });
     },
     _getMeasurementsConstantly: function _getMeasurementsConstantly() {
@@ -196,12 +200,17 @@ var App = React.createClass({
                                         React.createElement(
                                             'td',
                                             null,
-                                            'Latitude'
+                                            'Latitude [deg]'
                                         ),
                                         React.createElement(
                                             'td',
                                             null,
-                                            'Longitude'
+                                            'Longitude [deg]'
+                                        ),
+                                        React.createElement(
+                                            'td',
+                                            null,
+                                            'Altitude [m]'
                                         ),
                                         React.createElement(
                                             'td',
@@ -240,6 +249,11 @@ var App = React.createClass({
                                             React.createElement(
                                                 'td',
                                                 null,
+                                                measurement.position.altitude
+                                            ),
+                                            React.createElement(
+                                                'td',
+                                                null,
                                                 measurement.position.longitude
                                             ),
                                             React.createElement(
@@ -259,6 +273,16 @@ var App = React.createClass({
                                             )
                                         );
                                     })
+                                )
+                            ),
+                            React.createElement(
+                                'div',
+                                { className: 'pull-left' },
+                                React.createElement(
+                                    Button,
+                                    { bsStyle: 'danger', onClick: this._clearMeasurements, style: { marginRight: 5 } },
+                                    React.createElement(Glyphicon, { glyph: 'trash' }),
+                                    ' Clear Measurements'
                                 )
                             ),
                             React.createElement(
