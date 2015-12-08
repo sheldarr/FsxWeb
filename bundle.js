@@ -135,13 +135,13 @@ var App = React.createClass({
             }
         });
     },
-    _getMeasurementsConstaintly: function _getMeasurementsConstaintly() {
+    _getMeasurementsConstantly: function _getMeasurementsConstantly() {
         this.setState({
             intervalId: setInterval(this._getMeasurement, 1000)
         });
     },
-    _stopGetingMeasurementsConstaintly: function _stopGetingMeasurementsConstaintly() {
-        clearInterval(this.state.intevalId);
+    _stopGetingMeasurementsConstantly: function _stopGetingMeasurementsConstantly() {
+        clearInterval(this.state.intervalId);
 
         this.setState({
             intervalId: 0
@@ -270,13 +270,13 @@ var App = React.createClass({
                                 ),
                                 React.createElement(
                                     Button,
-                                    { bsStyle: 'success', onClick: this._getMeasurementsConstaintly, disabled: this.state.intervalId !== 0, style: { marginRight: 5 } },
+                                    { bsStyle: 'success', onClick: this._getMeasurementsConstantly, disabled: this.state.intervalId !== 0, style: { marginRight: 5 } },
                                     React.createElement(Glyphicon, { glyph: 'repeat' }),
-                                    ' Get Constaintly'
+                                    ' Get Constantly'
                                 ),
                                 React.createElement(
                                     Button,
-                                    { bsStyle: 'danger', onClick: this._stopGetingMeasurementsConstaintly, disabled: this.state.intervalId === 0, style: { marginRight: 5 } },
+                                    { bsStyle: 'danger', onClick: this._stopGetingMeasurementsConstantly, disabled: this.state.intervalId === 0, style: { marginRight: 5 } },
                                     React.createElement(Glyphicon, { glyph: 'stop' }),
                                     ' Stop'
                                 )

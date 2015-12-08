@@ -41,14 +41,14 @@ const App = React.createClass({
             });
     },
 
-    _getMeasurementsConstaintly() {
+    _getMeasurementsConstantly() {
         this.setState({
             intervalId: setInterval(this._getMeasurement, 1000)
         });
     },
 
-    _stopGetingMeasurementsConstaintly() {
-        clearInterval(this.state.intevalId)
+    _stopGetingMeasurementsConstantly() {
+        clearInterval(this.state.intervalId)
 
         this.setState({
             intervalId: 0
@@ -103,8 +103,8 @@ const App = React.createClass({
                                 </Table>
                                 <div className="pull-right">
                                     <Button bsStyle="success" onClick={this._getMeasurement} style={{marginRight: 20}}><Glyphicon glyph="download" /> Get Once</Button>
-                                    <Button bsStyle="success" onClick={this._getMeasurementsConstaintly} disabled={this.state.intervalId !== 0} style={{marginRight: 5}}><Glyphicon glyph="repeat" /> Get Constaintly</Button>
-                                    <Button bsStyle="danger" onClick={this._stopGetingMeasurementsConstaintly} disabled={this.state.intervalId === 0} style={{marginRight: 5}}><Glyphicon glyph="stop" /> Stop</Button>
+                                    <Button bsStyle="success" onClick={this._getMeasurementsConstantly} disabled={this.state.intervalId !== 0} style={{marginRight: 5}}><Glyphicon glyph="repeat" /> Get Constantly</Button>
+                                    <Button bsStyle="danger" onClick={this._stopGetingMeasurementsConstantly} disabled={this.state.intervalId === 0} style={{marginRight: 5}}><Glyphicon glyph="stop" /> Stop</Button>
                                 </div>
                             </Panel>
                         </Col>
