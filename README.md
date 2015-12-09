@@ -1,5 +1,5 @@
 # FsxWeb
-Web application for display FsxApi data
+Web application which displays FsxApi data
 
 ### How to use
 To update bundle.js use this command:
