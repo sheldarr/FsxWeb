@@ -1,11 +1,11 @@
-# FsxWeb
-Web application which displays FsxApi data
+# Fsx Web Client
+Web client for Fsx Api
 
 ### How to use
 To update bundle.js use this command:
 
 > npm run transpile
 
-FsxWeb connects to default FsxApi url which is:
+Fsx Web Client connects to default Fsx Api url which is:
 
 > http://localhost:7070/api/plan
