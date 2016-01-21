@@ -4,6 +4,8 @@ import { Button, Col, Glyphicon, Grid, Navbar, NavbarBrand, Panel, Row, Table } 
 import moment from 'moment';
 import request from 'superagent';
 
+const fsxApiUrl = 'http://localhost:7070';
+
 const Application = React.createClass({
     getInitialState () {
         return {
@@ -14,7 +16,7 @@ const Application = React.createClass({
 
     getMeasurement () {
         request
-            .get(`http://localhost:7070/api/plane`)
+            .get(`${fsxApiUrl}/api/plane`)
             .end((err, res) => {
                 if (!res) {
                     console.log(err);
